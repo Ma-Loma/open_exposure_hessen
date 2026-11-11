@@ -1,0 +1,24 @@
+---
+title: "Zubereitungsbericht und Beschreibung der Expositionsdaten an Hauskoordinaten"
+author: "Matthias Lochmann"
+format: typst
+editor: visual
+execute:
+   echo:  false
+   warning: false
+---
+
+
+```{r}
+#| label: front_matter
+rm(list = ls())
+.libPaths("C:/Users/lochmannm/Documents/R/library-4.6.2")
+library(tidyverse)
+library(readxl)
+library(flextable)
+library(sf)
+
+```
+
+## Problemstellung
+
