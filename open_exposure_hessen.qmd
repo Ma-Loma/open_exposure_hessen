@@ -22,3 +22,9 @@ library(sf)
 
 ## Problemstellung
 
+```{r}
+
+path<-"C:/Users/LOCHMA~1/DOCUME~1/SOURCE~1/data/NEUISE~1/BETRAC~1.GDB"
+nI<-sf::st_read(path)
+```
+
