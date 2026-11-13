@@ -23,8 +23,59 @@ library(sf)
 ## Problemstellung
 
 ```{r}
+#| label: lese_geo
 
-path<-"C:/Users/LOCHMA~1/DOCUME~1/SOURCE~1/data/NEUISE~1/BETRAC~1.GDB"
-nI<-sf::st_read(path)
+data_folder <- "C:/Users/lochmannm/Documents/SourceFFR/data/"
+ni_path <-
+  paste0(data_folder, "NeuIsenburg/Betrachte FasP.gdb")
+isen_gkz<-"438009"
+
+layers_neuIsenburg<-sf::st_layers(ni_path)
+hk <- sf::st_read(ni_path, layer = "Hauskoordinaten_NeuIsenburg") |>
+  sf::st_set_crs(25832)
+flurstuecke <- sf::st_read(ni_path, layer = "Flurstücke_NeuIsenburg") |>
+  sf::st_set_crs(25832)
+
+```
+
+```{r}
+#| label: fassadenpunkte
+fasp_folder <-
+  paste0(data_folder, "FasP/")
+
+shp_fasp_files <- data.frame(
+  files=list.files(path = fasp_folder, pattern = "\\.shp$", full.names = TRUE)
+) 
+
+print(shp_fasp_files)
+```
+
+
+```{r}
+#| label: airpoll
+airpoll_folder <-
+  paste0(data_folder, "Luftschadstoffe/vorbelastung_2019/")
+
+shp_files <- list.files(path = airpoll_folder, pattern = "\\.shp$", full.names = TRUE)
+
+print(shp_files)
+
+no2<-shp_files[2] |> 
+  sf::st_read()
+
+pm25<-shp_files[6] |> 
+  sf::st_read()
+
+```
+
+```{r}
+#| label: plot_HK
+
+ggplot() + 
+  geom_sf(data = hk,
+          aes(color = as.numeric(HNR))) +
+  scale_color_viridis_c(name="Hausnummer") + 
+  # geom_sf(data = flurstuecke) + 
+  theme_void()
 ```
 
